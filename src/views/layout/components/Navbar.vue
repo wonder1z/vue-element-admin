@@ -1,25 +1,27 @@
 <template>
-  <el-menu class="navbar" mode="horizontal">
+  <div class="navbar">
     <hamburger :toggle-click="toggleSideBar" :is-active="sidebar.opened" class="hamburger-container"/>
 
     <breadcrumb class="breadcrumb-container"/>
 
     <div class="right-menu">
-      <error-log class="errLog-container right-menu-item"/>
+      <template v-if="device!=='mobile'">
+        <error-log class="errLog-container right-menu-item"/>
 
-      <el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">
-        <screenfull class="screenfull right-menu-item"/>
-      </el-tooltip>
+        <el-tooltip :content="$t('navbar.screenfull')" effect="dark" placement="bottom">
+          <screenfull class="screenfull right-menu-item"/>
+        </el-tooltip>
 
-      <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
-        <size-select class="international right-menu-item"/>
-      </el-tooltip>
+        <el-tooltip :content="$t('navbar.size')" effect="dark" placement="bottom">
+          <size-select class="international right-menu-item"/>
+        </el-tooltip>
 
-      <lang-select class="international right-menu-item"/>
+        <lang-select class="international right-menu-item"/>
 
-      <el-tooltip :content="$t('navbar.theme')" effect="dark" placement="bottom">
-        <theme-picker class="theme-switch right-menu-item"/>
-      </el-tooltip>
+        <el-tooltip :content="$t('navbar.theme')" effect="dark" placement="bottom">
+          <theme-picker class="theme-switch right-menu-item"/>
+        </el-tooltip>
+      </template>
 
       <el-dropdown class="avatar-container right-menu-item" trigger="click">
         <div class="avatar-wrapper">
@@ -43,7 +45,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-  </el-menu>
+  </div>
 </template>
 
 <script>
@@ -70,7 +72,8 @@ export default {
     ...mapGetters([
       'sidebar',
       'name',
-      'avatar'
+      'avatar',
+      'device'
     ])
   },
   methods: {
@@ -127,15 +130,16 @@ export default {
       height: 50px;
       margin-right: 30px;
       .avatar-wrapper {
-        cursor: pointer;
         margin-top: 5px;
         position: relative;
         .user-avatar {
+          cursor: pointer;
           width: 40px;
           height: 40px;
           border-radius: 10px;
         }
         .el-icon-caret-bottom {
+          cursor: pointer;
           position: absolute;
           right: -20px;
           top: 25px;
